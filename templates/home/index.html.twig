@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block header %}
+    {% embed "components/navbar.html.twig" %}
+        {% block navbar %}
+            {% if app.user != null and 'ROLE_USER' in app.user.roles %}
+            <li>
+                User Dashboard
+            </li>
+            {% endif %}
+        {% endblock navbar %}
+    {% endembed  %}
+{% endblock header %}
+
+{% block body %}
+
+{% endblock %}
