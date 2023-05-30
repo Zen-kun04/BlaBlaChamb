@@ -14,7 +14,7 @@ class RuleFixtures extends AbstractFixture implements DependentFixtureInterface
         for ($i=0; $i < 10; $i++) { 
             # code...
             $rule = new Rule();
-            $rule->setAuthor($this->getReference("user_" . $i))
+            $rule->setAuthor($this->getReference("user_" . $this->faker->numberBetween(0, 9)))
             ->setName($this->faker->word());
             if($this->faker->numberBetween(0, 1) == 1) {
                 $rule->setDescription($this->faker->paragraph(1));

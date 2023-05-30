@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BlaBlaChamb - Profile{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('profile') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('profile') }}
+{% endblock %}
+
+{% block body %}
+<div id="information">
+    <div id="user">
+        <p>My information</p>
+        <div class="form-section">
+            <p>Created at: {{app.user.created|date('Y-m-d')}}</p>
+            {{form_start(user)}}
+            
+            <div class="form">
+                {{form_label(user.email)}}
+                {{form_errors(user.email)}}
+                {{form_widget(user.email)}}
+                {{form_help(user.email)}}
+            </div>
+            
+            <div class="form">
+                {{form_label(user.password)}}
+                {{form_errors(user.password)}}
+                {{form_widget(user.password)}}
+                <a href="{{ path('app_change_password') }}">Change password</a>
+                {{form_help(user.password)}}
+            </div>
+            
+            <div class="form">
+                {{form_label(user.first_name)}}
+                {{form_errors(user.first_name)}}
+                {{form_widget(user.first_name)}}
+                {{form_help(user.first_name)}}
+            </div>
+            
+            <div class="form">
+                {{form_label(user.last_name)}}
+                {{form_errors(user.last_name)}}
+                {{form_widget(user.last_name)}}
+                {{form_help(user.last_name)}}
+            </div>
+            
+            <div class="form">
+                {{form_label(user.phone)}}
+                {{form_errors(user.phone)}}
+                {{form_widget(user.phone)}}
+                {{form_help(user.phone)}}
+            </div>
+            
+            {{form_end(user)}}
+            
+        </div>
+    </div>
+    <div id="car">
+        <p>Car information</p>
+        <div class="form-section">
+            
+            <p>Created at: {{car.created|date('Y-m-d')}}</p>
+            {{form_start(form_car)}}
+            <div class="form">
+                {{form_label(form_car.brand)}}
+                {{form_errors(form_car.brand)}}
+                {{form_widget(form_car.brand)}}
+                {{form_help(form_car.brand)}}
+            </div>
+            <div class="form">
+                {{form_label(form_car.model)}}
+                {{form_errors(form_car.model)}}
+                {{form_widget(form_car.model)}}
+                {{form_help(form_car.model)}}
+            </div>
+            <div class="form">
+                {{form_label(form_car.seats)}}
+                {{form_errors(form_car.seats)}}
+                {{form_widget(form_car.seats)}}
+                {{form_help(form_car.seats)}}
+            </div>
+            {{form_end(form_car)}}
+        </div>
+    </div>
+    <div id="rules">
+        <p>My rules</p>
+        <div class="form-section">
+            {% for rule in rules %}
+                <div class="rule">
+                    <i>ID: {{ loop.index }}</i>
+                    <p>Name: {{ rule.name }}</p>
+                    <p>Description: {{ rule.description }}</p>
+                </div>
+            {% endfor %}
+            <a href="{{ path('app_add_rule') }}">Add rule</a>
+            <a href="{{ path('app_delete_rule', ) }}">Delete rule</a>
+            <a href="{{ path('app_edit_rule', ) }}">Edit rule</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -7,7 +7,25 @@
         {% block navbar %}
             {% if app.user != null and 'ROLE_USER' in app.user.roles %}
             <li>
-                User Dashboard
+                <img src="{{ asset('images/user.png') }}" alt="">
+                <ul>
+                    <li>
+                        <a href="{{ path('app_profile') }}">My profile</a>
+                    </li>
+                    <li>
+                        <a href="">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('app_logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{ path('app_login') }}">Login</a>
+            </li>
+            <li>
+                <a href="{{ path('app_register') }}">Register</a>
             </li>
             {% endif %}
         {% endblock navbar %}
@@ -15,5 +33,7 @@
 {% endblock header %}
 
 {% block body %}
-
+    {% if app.user != null and 'ROLE_USER' in app.user.roles %}
+    <h2>Welcome {{ app.user.email }} to BlaBlaCar!</h2>
+    {% endif %}
 {% endblock %}

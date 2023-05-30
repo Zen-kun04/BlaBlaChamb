@@ -17,8 +17,8 @@ class CarFixtures extends AbstractFixture implements DependentFixtureInterface
             $car->setBrand($this->faker->name())
             ->setModel($this->faker->name())
             ->setSeats($this->faker->numberBetween(1, 4))
-            ->setOwner($this->getReference("user_" . $i))
-            ->setCreated(new \DateTimeImmutable(date('Y-m-d H:i:s')));
+            ->setOwner($this->getReference("user_" . $this->faker->numberBetween(0, 9)))
+            ->setCreated($this->faker->dateTimeBetween('-1 year', 'now'));
             $this->setReference("car_" . $i, $car);
             $manager->persist($car);
         }

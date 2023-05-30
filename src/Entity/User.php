@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -38,31 +36,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $last_name = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 25)]
     private ?string $phone = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $created = null;
-
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Rule::class)]
-    private Collection $rules;
-
-    #[ORM\OneToMany(mappedBy: 'driver', targetEntity: Ride::class)]
-    private Collection $rides;
-
-    #[ORM\OneToMany(mappedBy: 'passenger', targetEntity: Reservation::class)]
-    private Collection $reservations;
-
-    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Car::class)]
-    private Collection $cars;
-
-    public function __construct()
-    {
-        $this->rules = new ArrayCollection();
-        $this->rides = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
-        $this->cars = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -178,126 +156,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreated(\DateTimeInterface $created): self
     {
         $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Rule>
-     */
-    public function getRules(): Collection
-    {
-        return $this->rules;
-    }
-
-    public function addRule(Rule $rule): self
-    {
-        if (!$this->rules->contains($rule)) {
-            $this->rules->add($rule);
-            $rule->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRule(Rule $rule): self
-    {
-        if ($this->rules->removeElement($rule)) {
-            // set the owning side to null (unless already changed)
-            if ($rule->getAuthor() === $this) {
-                $rule->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Ride>
-     */
-    public function getRides(): Collection
-    {
-        return $this->rides;
-    }
-
-    public function addRide(Ride $ride): self
-    {
-        if (!$this->rides->contains($ride)) {
-            $this->rides->add($ride);
-            $ride->setDriver($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRide(Ride $ride): self
-    {
-        if ($this->rides->removeElement($ride)) {
-            // set the owning side to null (unless already changed)
-            if ($ride->getDriver() === $this) {
-                $ride->setDriver(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
-    {
-        return $this->reservations;
-    }
-
-    public function addReservation(Reservation $reservation): self
-    {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations->add($reservation);
-            $reservation->setPassenger($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReservation(Reservation $reservation): self
-    {
-        if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
-            if ($reservation->getPassenger() === $this) {
-                $reservation->setPassenger(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Car>
-     */
-    public function getCars(): Collection
-    {
-        return $this->cars;
-    }
-
-    public function addCar(Car $car): self
-    {
-        if (!$this->cars->contains($car)) {
-            $this->cars->add($car);
-            $car->setOwner($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCar(Car $car): self
-    {
-        if ($this->cars->removeElement($car)) {
-            // set the owning side to null (unless already changed)
-            if ($car->getOwner() === $this) {
-                $car->setOwner(null);
-            }
-        }
 
         return $this;
     }

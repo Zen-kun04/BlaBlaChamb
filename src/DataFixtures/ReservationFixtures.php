@@ -16,8 +16,8 @@ class ReservationFixtures extends AbstractFixture implements DependentFixtureInt
             # code...
             $reservation = new Reservation();
             $reservation->setConfirmed($this->faker->boolean())
-            ->setPassenger($this->getReference("user_" . $i))
-            ->setRide($this->getReference("ride_" . $i));
+            ->setPassenger($this->getReference("user_" . $this->faker->numberBetween(0, 9)))
+            ->setRide($this->getReference("ride_" . $this->faker->numberBetween(0, 9)));
             $manager->persist($reservation);
         }
         

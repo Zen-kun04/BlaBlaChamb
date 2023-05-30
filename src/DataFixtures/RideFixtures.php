@@ -14,12 +14,12 @@ class RideFixtures extends AbstractFixture implements DependentFixtureInterface
         for ($i=0; $i < 10; $i++) { 
             # code...
             $ride = new Ride();
-            $ride->setCreated(new \DateTimeImmutable(date("Y-m-d H:i:s")))
-            ->setDate(new \DateTimeImmutable(date("Y-m-d H:i:s")))
+            $ride->setCreated($this->faker->dateTimeBetween('-1 year', 'now'))
+            ->setDate($this->faker->dateTimeBetween('-1 year', 'now'))
             ->setDeparture($this->faker->words(3, true))
             ->setDestination($this->faker->words(3, true))
-            ->setDriver($this->getReference("user_" . $i))
-            ->setSeats($this->getReference("car_" . $i)->getSeats())
+            ->setDriver($this->getReference("user_" . $this->faker->numberBetween(0, 9)))
+            ->setSeats($this->getReference("car_" . $this->faker->numberBetween(0, 9))->getSeats())
             ->setPrice($this->faker->numberBetween(1, 100));
             $this->setReference("ride_" . $i, $ride);
             $manager->persist($ride);

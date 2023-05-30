@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "ESNext",
+      "outDir": "dist"
+    },
+    "include": [
+      "assets/scripts/*.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
