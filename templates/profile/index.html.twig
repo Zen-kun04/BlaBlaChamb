@@ -90,14 +90,71 @@
         <div class="form-section">
             {% for rule in rules %}
                 <div class="rule">
-                    <i>ID: {{ loop.index }}</i>
+                    <i>ID: {{ loop.index }}</i> <a href="{{ path('app_delete_rule_id', {'id': rule.id}) }}">Delete rule</a> <a href="{{ path('app_edit_rule_id', {'id': rule.id}) }}">Edit rule</a>
                     <p>Name: {{ rule.name }}</p>
                     <p>Description: {{ rule.description }}</p>
                 </div>
             {% endfor %}
             <a href="{{ path('app_add_rule') }}">Add rule</a>
-            <a href="{{ path('app_delete_rule', ) }}">Delete rule</a>
-            <a href="{{ path('app_edit_rule', ) }}">Edit rule</a>
+            
+            
+        </div>
+    </div>
+    <div id="rides">
+        <p>Rides</p>
+        <div class="form-section">
+            {% for ride in rides %}
+                <div class="ride">
+                    <i>ID: {{loop.index }}</i> <a href="{{ path('app_delete_ride_id', {'id': ride.id }) }}">Delete ride</a> <a href="{{ path('app_edit_ride_id', {'id': ride.id}) }}">Edit ride</a>
+                    <p>From: {{ ride.departure }}</p>
+                    <p>To: {{ ride.destination }}</p>
+                    <p>Seats: {{ ride.seats }}</p>
+                    <p>Date: {{ ride.date|date("m/d/Y") }}</p>
+                    <p>Price: {{ ride.price }} €</p>
+                </div>
+            {% endfor %}
+            <a href="{{ path('app_add_ride') }}">Add ride</a>
+        </div>
+    </div>
+
+    <div id="reservations">
+        <p>Reservations</p>
+        <div class="form-section">
+            {% for res in reservations %}
+                {% if res.passenger != app.user %}
+                    {# It's a reservation FROM someone else TO the current user ride #}
+                    <div class="res-ride">
+                        <ul>
+                            <li>From: {{ res.ride.departure }}</li>
+                            <li>To: {{ res.ride.destination }}</li>
+                        </ul>
+                        <p>Client: <i>{{ res.passenger.firstName }} {{ res.passenger.lastName }}</i></p>
+                        <p>Seats: {{ res.ride.seats }}</p>
+                        {% if res.confirmed %}
+                            <p>It's confirmed</p>
+                        {% else %}
+                            <a href="{{ path('app_confirm_reservation_id', {'id': res.id}) }}">Confirm reservation</a>
+                        {% endif %}
+                        
+                    </div>
+                {% else %}
+                    {# It's a reservation FROM the current user TO someone else ride #}
+                    <div class="reservation">
+                        {% set driver = res.ride.driver %}
+                        <p class="name">{{ driver.firstName }} {{ driver.lastName }}</p>
+                        <ul>
+                            <li>From: {{ res.ride.departure }}</li>
+                            <li>To: {{ res.ride.destination }}</li>
+                        </ul>
+                        <p>Seats: {{ res.ride.seats }}</p>
+                        {% if res.confirmed %}
+                            <p>Reservation is confirmed !</p>
+                        {% else %}
+                            <p>The reservation is not confirmed yet :(</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 </div>

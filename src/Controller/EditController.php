@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Ride;
 use App\Entity\Rule;
+use App\Form\EditRideType;
 use App\Form\EditRuleSelectorType;
 use App\Form\EditRuleType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,21 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/edit')]
 class EditController extends AbstractController
 {
-
-    #[Route('/rule', name: 'app_edit_rule')]
-    public function index(Request $request): Response {
-
-        $form = $this->createForm(EditRuleSelectorType::class);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
-            $id = $form->get('name')->getData();
-            return $this->redirectToRoute('app_edit_rule_id', ['id' => $id]);
-        }
-
-        return $this->render('edit/rule/index.html.twig', [
-            "form" => $form->createView()
-        ]);
-    }
 
     #[Route('/rule/{id}', name: 'app_edit_rule_id')]
     public function edit_rule_id(string $id, EntityManagerInterface $entityManager, Request $request): Response
@@ -47,6 +34,27 @@ class EditController extends AbstractController
         }
         
         return $this->render('edit/rule/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/ride/{id}', name: 'app_edit_ride_id')]
+    public function edit_ride_id(string $id, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $rideRepository = $entityManager->getRepository(Ride::class);
+        $ride = $rideRepository->find($id);
+        if($ride){
+            $form = $this->createForm(EditRideType::class, $ride);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($form->getData());
+                $entityManager->flush();
+                return $this->redirectToRoute('app_profile');
+            }
+        }
+        
+        return $this->render('edit/ride/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }

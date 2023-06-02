@@ -16,8 +16,8 @@ class RideFixtures extends AbstractFixture implements DependentFixtureInterface
             $ride = new Ride();
             $ride->setCreated($this->faker->dateTimeBetween('-1 year', 'now'))
             ->setDate($this->faker->dateTimeBetween('-1 year', 'now'))
-            ->setDeparture($this->faker->words(3, true))
-            ->setDestination($this->faker->words(3, true))
+            ->setDeparture($this->faker->city())
+            ->setDestination($this->faker->city())
             ->setDriver($this->getReference("user_" . $this->faker->numberBetween(0, 9)))
             ->setSeats($this->getReference("car_" . $this->faker->numberBetween(0, 9))->getSeats())
             ->setPrice($this->faker->numberBetween(1, 100));

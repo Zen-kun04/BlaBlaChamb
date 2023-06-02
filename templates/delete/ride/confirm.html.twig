@@ -1,0 +1,6 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Please confirm the deletion of ride from "{{ ride.department }}" to "{{ ride.destination }}"</h1>
+    {{ form(form) }}
+{% endblock body %}
