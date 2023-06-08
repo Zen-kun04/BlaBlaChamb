@@ -3,6 +3,7 @@
 {% block title %}BlaBlaChamb - Profile{% endblock %}
 
 {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
     {{ encore_entry_link_tags('profile') }}
 {% endblock %}
 
@@ -61,28 +62,34 @@
     <div id="car">
         <p>Car information</p>
         <div class="form-section">
+        {% if car is not null %}
+        <p>Created at: {{car.created|date('Y-m-d')}}</p>
+        {{form_start(form_car)}}
+        <div class="form">
+            {{form_label(form_car.brand)}}
+            {{form_errors(form_car.brand)}}
+            {{form_widget(form_car.brand)}}
+            {{form_help(form_car.brand)}}
+        </div>
+        <div class="form">
+            {{form_label(form_car.model)}}
+            {{form_errors(form_car.model)}}
+            {{form_widget(form_car.model)}}
+            {{form_help(form_car.model)}}
+        </div>
+        <div class="form">
+            {{form_label(form_car.seats)}}
+            {{form_errors(form_car.seats)}}
+            {{form_widget(form_car.seats)}}
+            {{form_help(form_car.seats)}}
+        </div>
+        {{form_end(form_car)}}
+        {% else %}
+        <p>You don't have a car</p>
+        {% endif %}
+        
             
-            <p>Created at: {{car.created|date('Y-m-d')}}</p>
-            {{form_start(form_car)}}
-            <div class="form">
-                {{form_label(form_car.brand)}}
-                {{form_errors(form_car.brand)}}
-                {{form_widget(form_car.brand)}}
-                {{form_help(form_car.brand)}}
-            </div>
-            <div class="form">
-                {{form_label(form_car.model)}}
-                {{form_errors(form_car.model)}}
-                {{form_widget(form_car.model)}}
-                {{form_help(form_car.model)}}
-            </div>
-            <div class="form">
-                {{form_label(form_car.seats)}}
-                {{form_errors(form_car.seats)}}
-                {{form_widget(form_car.seats)}}
-                {{form_help(form_car.seats)}}
-            </div>
-            {{form_end(form_car)}}
+            
         </div>
     </div>
     <div id="rules">
@@ -113,7 +120,12 @@
                     <p>Price: {{ ride.price }} €</p>
                 </div>
             {% endfor %}
-            <a href="{{ path('app_add_ride') }}">Add ride</a>
+            {% if car is null %}
+                <p>You need to have a car to be able to create a ride</p>
+            {% else %}
+                <a href="{{ path('app_add_ride') }}">Add ride</a>
+            {% endif %}
+            
         </div>
     </div>
 
@@ -151,6 +163,7 @@
                             <p>Reservation is confirmed !</p>
                         {% else %}
                             <p>The reservation is not confirmed yet :(</p>
+                            
                         {% endif %}
                     </div>
                 {% endif %}

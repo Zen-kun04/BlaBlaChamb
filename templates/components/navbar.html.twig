@@ -1,11 +1,40 @@
 
 <nav>
     <ul>
+        <img src="{{ asset('images/logo-no-background.png') }}" alt="" draggable="false" id="logo">
         <li>
             <a href="{{ path('app_home') }}">Home</a>
         </li>
-        {% block navbar %}
-        
-        {% endblock navbar %}
+        <li>
+            <a href="{{ path('app_announcements') }}">Announcements</a>
+        </li>
     </ul>
+        {% if app.user != null and 'ROLE_USER' in app.user.roles %}
+    
+            <ul id="profile-list">
+                <li>
+                    <img src="{{ asset('images/user.png') }}" alt="" id="profile">
+                    <ul>
+                        <li>
+                            <a href="{{ path('app_profile') }}">My profile</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            
+            {% else %}
+            <ul>
+                <li>
+                    <a href="{{ path('app_login') }}">Login</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_register') }}">Register</a>
+                </li>
+            </ul>
+            
+            {% endif %}
+    
 </nav>

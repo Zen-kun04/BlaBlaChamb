@@ -1,3 +1,108 @@
+@import url(./fonts.scss);
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    background-color: lightgray;
+    background-color: #FBFF3E;
+    nav {
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        font-family: "VHF";
+        & > ul:not(#profile-list) {
+            gap: 30px;
+        }
+        & > ul#profile-list {
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+        & > ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            
+            img#logo {
+                margin-left: 25px;
+                max-width: 120px;
+            }
+            
+            & > li {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                img {
+                    margin-bottom: 15px;
+                }
+                a {
+                    text-decoration: none;
+                    color: #000000;
+                }
+                ul {
+                    list-style: none;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    background-color: #F5F5F5;
+                    padding: 10px;
+                    border-radius: 10px;
+                    border: 1px solid #000000;
+                    li {
+                        padding: 5px;
+                        transition: 300ms;
+                        &:hover {
+                            background-color: #727272;
+                        }
+                    }
+                }
+            }
+        }
+
+        
+    }
+    .error {
+        background-color: rgb(255, 106, 106);
+        font-family: Arial, Helvetica, sans-serif;
+        width: 40%;
+        margin: 0 auto;
+        text-align: center;
+        padding: 5px;
+        color: #000000;
+        font-size: 14px;
+    }
+
+    #presentation {
+        margin-top: 50px;
+        padding-top: 15px;
+        padding-bottom: 150px;
+        margin-bottom: 50px;
+        background-color: #00E0FF;
+        border-radius: 30px 30px 0 0;
+        text-align: center;
+        h1 {
+            font-family: "Banabo";
+            font-size: 44px;
+        }
+
+        h2 {
+            font-family: "VHF";
+        }
+        
+
+        #form {
+            display: flex;
+            justify-content: space-evenly;
+            max-width: 60%;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            .field {
+                display: flex;
+                justify-content: space-evenly;
+            }
+        }
+    }
+
 }

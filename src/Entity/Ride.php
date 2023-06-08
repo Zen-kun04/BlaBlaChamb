@@ -28,8 +28,8 @@ class Ride
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'rides')]
     #[ORM\JoinColumn(nullable: false)]
@@ -48,6 +48,7 @@ class Ride
     {
         $this->rules = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->date = new \DateTime();
     }
 
     public function getId(): ?int
@@ -108,7 +109,7 @@ class Ride
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate($date): self
     {
         $this->date = $date;
 

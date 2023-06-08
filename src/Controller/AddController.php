@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Car;
 use App\Entity\Ride;
 use App\Entity\Rule;
 use App\Entity\User;
@@ -48,6 +49,10 @@ class AddController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $user = $security->getUser();
+            $carRepository = $entityManager->getRepository(Car::class);
+            if($carRepository->findOneBy(["driver" => $user]) === null){
+                return $this->redirectToRoute('app_profile');
+            }
             $ride = new Ride();
             $ride->setCreated(new \DateTime())
             ->setDate($form->get("date")->getData())

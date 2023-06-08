@@ -39,6 +39,31 @@ class RideRepository extends ServiceEntityRepository
         }
     }
 
+    public function search($from = null, $to = null, $date = null): array {
+        if($from === null || $to === null){
+            return $this->createQueryBuilder('r')
+        ->getQuery()
+        ->getResult();
+        }
+        if($date === null) {
+            return $this->createQueryBuilder('r')
+        ->where("r.departure LIKE :dep")
+        ->andWhere("r.destination LIKE :des")
+        ->setParameters(["dep" => '%' . $from . '%', "des" => '%' . $to . '%'])
+        ->getQuery()
+        ->getResult();
+        }
+        return $this->createQueryBuilder('r')
+        ->where("r.departure LIKE :dep")
+        ->andWhere("r.destination LIKE :des")
+        ->andWhere("r.date = :date")
+        ->setParameters(["dep" => '%' . $from . '%', "des" => '%' . $to . '%', "date" => $date])
+        ->getQuery()
+        ->getResult();
+    }
+
+
+
 //    /**
 //     * @return Ride[] Returns an array of Ride objects
 //     */

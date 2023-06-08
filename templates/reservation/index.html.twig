@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ReservationController!{% endblock %}
+
+{% block body %}
+    <div id="ride-information">
+        <img src="{{ asset('images/user.png') }}" alt="">
+        <p>{{ ride.driver.firstName}} {{ ride.driver.lastName}}</p>
+        <div id="ride">
+            <p>{{ ride.date|date("m/d/Y")}}</p>
+            <div id="direction">
+                <p>From: {{ ride.departure }}</p>
+                <p>To: {{ ride.destination }}</p>
+            </div>
+            {% set passengers = ride.reservations|map(item => item.passenger) %}
+            {% if app.user is not null and ride.driver is not same as(app.user) and app.user not in passengers %}
+                {{ form(form) }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

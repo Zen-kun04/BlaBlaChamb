@@ -2,38 +2,68 @@
 
 {% block title %}Hello HomeController!{% endblock %}
 
-{% block header %}
-    {% embed "components/navbar.html.twig" %}
-        {% block navbar %}
-            {% if app.user != null and 'ROLE_USER' in app.user.roles %}
-            <li>
-                <img src="{{ asset('images/user.png') }}" alt="">
-                <ul>
-                    <li>
-                        <a href="{{ path('app_profile') }}">My profile</a>
-                    </li>
-                    <li>
-                        <a href="">Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_logout') }}">Logout</a>
-                    </li>
-                </ul>
-            </li>
-            {% else %}
-            <li>
-                <a href="{{ path('app_login') }}">Login</a>
-            </li>
-            <li>
-                <a href="{{ path('app_register') }}">Register</a>
-            </li>
-            {% endif %}
-        {% endblock navbar %}
-    {% endembed  %}
-{% endblock header %}
-
 {% block body %}
-    {% if app.user != null and 'ROLE_USER' in app.user.roles %}
-    <h2>Welcome {{ app.user.email }} to BlaBlaCar!</h2>
+<div id="presentation">
+    <h1>BlaBlaChamb</h1>
+    <h2>Discover a new world</h2>
+    {{ form_start(search) }}
+    <div class="search-error">
+        {{ form_errors(search) }}
+    </div>
+    <div id="form">
+        <div class="field">
+            <div class="label">
+                {{ form_label(search.departure) }}:
+            </div>
+            {{ form_widget(search.departure) }}
+        </div>
+
+        <div class="field">
+            <div class="label">
+                {{ form_label(search.destination) }}:
+            </div>
+            {{ form_widget(search.destination) }}
+        </div>
+
+        <div class="field">
+            <div class="label">
+                {{ form_label(search.date) }}:
+            </div>
+            {{ form_widget(search.date) }}
+        </div>
+
+        <div class="field">
+            <div class="label">
+                {{ form_label(search.submit) }}
+            </div>
+            {{ form_widget(search.submit) }}
+        </div>
+        
+    </div>
+    {{ form_widget(search) }}
+    {{ form_end(search) }}
+</div>
+    {% if rides %}
+        {% for ride in rides %}
+            <a href="{{ path('app_reservation_id', {'id': ride.id}) }}">
+                <div class="ride">
+                    <p>{{ride.driver.firstName}} {{ride.driver.lastName}}</p>
+                    <p>{{ride.date|date("m/d/Y")}}</p>
+                    <div class="direction">
+                        <p>From: {{ride.departure}}</p>
+                        <p>To: {{ride.destination}}</p>
+                        <p>Price: <i>{{ ride.price }} €</i></p>
+                        <p>Seats: {{ ride.seats }}</p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <p class="error">
+            No results found for an announce that goes from "{{ departure }}" to "{{ destination }}" {% if date %}
+                the {{date|date("m/d/Y")}}
+            {% endif %}
+        </p>
     {% endif %}
+    
 {% endblock %}

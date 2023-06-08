@@ -15,7 +15,8 @@
     </head>
     <header>
         {% block header %}
-            
+            {% embed "components/navbar.html.twig" %}
+            {% endembed  %}
         {% endblock header %}
     </header>
     <body>

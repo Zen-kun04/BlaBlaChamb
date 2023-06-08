@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AnnouncementsController!{% endblock %}
+
+{% block body %}
+    {{ form(filters) }}
+    {% for result in results %}
+        <a href="{{ path('app_reservation_id', {'id': result.id}) }}">
+            <div class="ride">
+                <p>{{result.driver.firstName}} {{result.driver.lastName}}</p>
+                <p>{{result.date|date("m/d/Y")}}</p>
+                <div class="direction">
+                    <p>From: {{result.departure}}</p>
+                    <p>To: {{result.destination}}</p>
+                    <p>Price: <i>{{ result.price }} €</i></p>
+                    <p>Seats: {{ result.seats }}</p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock %}
