@@ -63,6 +63,19 @@ body {
 
         
     }
+    a.result {
+        display: block;
+        max-width: 40%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        
+        > div {
+            background-color: #FFFFFF;
+            border: 1px solid #000000;
+            border-radius: 20px;
+        }
+        
+    }
     .error {
         background-color: rgb(255, 106, 106);
         font-family: Arial, Helvetica, sans-serif;
@@ -101,6 +114,12 @@ body {
             .field {
                 display: flex;
                 justify-content: space-evenly;
+            }
+
+            input {
+                border-radius: 5px;
+                outline: none;
+                border: 1px solid #000000;
             }
         }
     }

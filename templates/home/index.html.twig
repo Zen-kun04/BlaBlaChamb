@@ -45,7 +45,7 @@
 </div>
     {% if rides %}
         {% for ride in rides %}
-            <a href="{{ path('app_reservation_id', {'id': ride.id}) }}">
+            <a href="{{ path('app_reservation_id', {'id': ride.id}) }}" class="result">
                 <div class="ride">
                     <p>{{ride.driver.firstName}} {{ride.driver.lastName}}</p>
                     <p>{{ride.date|date("m/d/Y")}}</p>

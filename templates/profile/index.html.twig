@@ -14,7 +14,7 @@
 {% block body %}
 <div id="information">
     <div id="user">
-        <p>My information</p>
+        <p class="title">My information</p>
         <div class="form-section">
             <p>Created at: {{app.user.created|date('Y-m-d')}}</p>
             {{form_start(user)}}
@@ -60,7 +60,7 @@
         </div>
     </div>
     <div id="car">
-        <p>Car information</p>
+        <p class="title">Car information</p>
         <div class="form-section">
         {% if car is not null %}
         <p>Created at: {{car.created|date('Y-m-d')}}</p>
@@ -93,7 +93,7 @@
         </div>
     </div>
     <div id="rules">
-        <p>My rules</p>
+        <p class="title">My rules</p>
         <div class="form-section">
             {% for rule in rules %}
                 <div class="rule">
@@ -108,7 +108,7 @@
         </div>
     </div>
     <div id="rides">
-        <p>Rides</p>
+        <p class="title">Rides</p>
         <div class="form-section">
             {% for ride in rides %}
                 <div class="ride">
@@ -130,7 +130,7 @@
     </div>
 
     <div id="reservations">
-        <p>Reservations</p>
+        <p class="title">Reservations</p>
         <div class="form-section">
             {% for res in reservations %}
                 {% if res.passenger != app.user %}

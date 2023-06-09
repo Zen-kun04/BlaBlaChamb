@@ -3,9 +3,56 @@
 {% block title %}Hello AnnouncementsController!{% endblock %}
 
 {% block body %}
-    {{ form(filters) }}
+<div id="presentation">
+    <h1>Filter results by:</h1>
+    {{ form_start(filters) }}
+    <div class="filters-error">
+        {{ form_errors(filters) }}
+    </div>
+    <div id="form">
+        <div class="field">
+            <div class="label">
+                {{ form_label(filters.departure) }}:
+            </div>
+            {{ form_widget(filters.departure) }}
+        </div>
+
+        <div class="field">
+            <div class="label">
+                {{ form_label(filters.destination) }}:
+            </div>
+            {{ form_widget(filters.destination) }}
+        </div>
+
+        <div class="field">
+            <div class="label">
+                {{ form_label(filters.date) }}:
+            </div>
+            {{ form_widget(filters.date) }}
+        </div>
+
+        <div class="field">
+            <div class="label">
+                {{ form_label(filters.creation) }}:
+            </div>
+            {{ form_widget(filters.creation) }}
+        </div>
+
+        <div class="field">
+            <div class="label">
+                {{ form_label(filters.submit) }}
+            </div>
+            {{ form_widget(filters.submit) }}
+        </div>
+        
+    </div>
+    {{ form_widget(filters) }}
+    {{ form_end(filters) }}
+    {{ form_end(filters) }}
+</div>
+    
     {% for result in results %}
-        <a href="{{ path('app_reservation_id', {'id': result.id}) }}">
+        <a href="{{ path('app_reservation_id', {'id': result.id}) }}" class="result">
             <div class="ride">
                 <p>{{result.driver.firstName}} {{result.driver.lastName}}</p>
                 <p>{{result.date|date("m/d/Y")}}</p>

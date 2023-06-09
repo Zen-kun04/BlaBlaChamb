@@ -7,9 +7,11 @@
     > div {
         .form-section {
             margin-left: 10px;
+            font-family: Arial, Helvetica, sans-serif;
         }
-        > p{
+        > .title{
             text-align: center;
+            font-family: "VHF";
         }
     }
     .form {
@@ -18,4 +20,27 @@
             max-width: 150px;
         }
     }
+    
+    .res-ride {
+        border: 2px solid #ff00a6;
+    }
+
+    .reservation {
+        border: 2px solid #0066ff;
+    }
+    .reservation, .res-ride {
+        margin: 0 auto;
+        max-width: 80%;
+        margin-bottom: 10px;
+        background-color: #FFFFFF;
+        border-radius: 20px;
+        p, ul, a {
+            margin-left: 20px;
+        }
+        ul {
+            list-style: none;
+        }
+    }
+
+    
 }
