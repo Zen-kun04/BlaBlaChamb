@@ -28,7 +28,7 @@ class Ride
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'rides')]
@@ -38,7 +38,7 @@ class Ride
     #[ORM\ManyToMany(targetEntity: Rule::class, inversedBy: 'rides')]
     private Collection $rules;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created = null;
 
     #[ORM\OneToMany(mappedBy: 'ride', targetEntity: Reservation::class)]
